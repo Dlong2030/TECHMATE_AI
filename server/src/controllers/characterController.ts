@@ -1,12 +1,13 @@
-import { Request, Response } from 'express'
+import { Response } from 'express'
+import { AuthRequest } from '../middlewares/authMiddleware'
 import Character from '../models/Character'
 
 // ─── GET /api/characters ──────────────────────────────────────────────────────
 
-export const getCharacters = async (req: Request, res: Response): Promise<void> => {
+export const getCharacters = async (req: AuthRequest, res: Response): Promise<void> => {
     try {
-        const { teacherId } = req.params
-        const characters = await Character.find({ teacherId, isActive: true }).sort({ createdAt: -1 })
+        const teacher = req.teacher!
+        const characters = await Character.find({ teacherId: teacher._id, isActive: true }).sort({ createdAt: -1 })
         res.json({ success: true, data: characters })
     } catch (error) {
         res.status(500).json({ success: false, message: 'Lỗi khi lấy danh sách nhân vật' })
@@ -15,9 +16,11 @@ export const getCharacters = async (req: Request, res: Response): Promise<void> 
 
 // ─── GET /api/characters/:id ──────────────────────────────────────────────────
 
-export const getCharacterById = async (req: Request, res: Response): Promise<void> => {
+export const getCharacterById = async (req: AuthRequest, res: Response): Promise<void> => {
     try {
-        const character = await Character.findById(req.params.id)
+        const teacher = req.teacher!
+
+        const character = await Character.findOne({ _id: req.params.id, teacherId: teacher._id })
         if (!character) {
             res.status(404).json({ success: false, message: 'Không tìm thấy nhân vật' })
             return
@@ -30,12 +33,13 @@ export const getCharacterById = async (req: Request, res: Response): Promise<voi
 
 // ─── POST /api/characters ─────────────────────────────────────────────────────
 
-export const createCharacter = async (req: Request, res: Response): Promise<void> => {
+export const createCharacter = async (req: AuthRequest, res: Response): Promise<void> => {
     try {
-        const { teacherId, name, subject, grade, personality, systemPrompt, avatarUrl } = req.body
+        const teacher = req.teacher!
+        const { name, subject, grade, personality, systemPrompt, avatarUrl } = req.body
 
         const character = await Character.create({
-            teacherId,
+            teacherId: teacher._id, // lấy từ token, không cần truyền từ body
             name,
             subject,
             grade,
@@ -57,11 +61,16 @@ export const createCharacter = async (req: Request, res: Response): Promise<void
 
 // ─── PUT /api/characters/:id ──────────────────────────────────────────────────
 
-export const updateCharacter = async (req: Request, res: Response): Promise<void> => {
+export const updateCharacter = async (req: AuthRequest, res: Response): Promise<void> => {
     try {
-        const character = await Character.findByIdAndUpdate(
-            req.params.id,
-            { ...req.body },
+        const teacher = req.teacher!
+
+        // Không cho phép đổi teacherId
+        const { teacherId, ...updateData } = req.body
+
+        const character = await Character.findOneAndUpdate(
+            { _id: req.params.id, teacherId: teacher._id }, // chỉ update nhân vật của mình
+            { ...updateData },
             { new: true, runValidators: true }
         )
 
@@ -78,11 +87,13 @@ export const updateCharacter = async (req: Request, res: Response): Promise<void
 
 // ─── DELETE /api/characters/:id ───────────────────────────────────────────────
 
-export const deleteCharacter = async (req: Request, res: Response): Promise<void> => {
+export const deleteCharacter = async (req: AuthRequest, res: Response): Promise<void> => {
     try {
+        const teacher = req.teacher!
+
         // Soft delete — chỉ set isActive = false, không xoá khỏi DB
-        const character = await Character.findByIdAndUpdate(
-            req.params.id,
+        const character = await Character.findOneAndUpdate(
+            { _id: req.params.id, teacherId: teacher._id }, // chỉ xoá nhân vật của mình
             { isActive: false },
             { new: true }
         )

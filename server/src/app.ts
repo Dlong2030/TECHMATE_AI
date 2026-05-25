@@ -7,6 +7,8 @@ import connectDB from './config/db'
 import characterRoutes from './routes/characterRoutes'
 import teacherRoutes from './routes/teacherRoutes'
 import otpRoutes from './routes/otpRoutes'
+import chatRoutes from './routes/chatRoutes'
+import sessionRoutes from './routes/sessionRoutes'
 
 
 const app: Application = express()
@@ -30,6 +32,8 @@ const api = '/api/v1';
 app.use(`${api}/characters`, characterRoutes)
 app.use(`${api}/teachers`, teacherRoutes)
 app.use(`${api}/otp`, otpRoutes)
+app.use(`${api}/chat`, chatRoutes)
+app.use(`${api}/sessions`, sessionRoutes)
 
 // Health check
 app.get(`${api}/health`, (_req: Request, res: Response) => {
