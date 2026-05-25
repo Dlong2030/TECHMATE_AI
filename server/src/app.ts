@@ -1,14 +1,13 @@
+import dotenv from 'dotenv'
+dotenv.config()
 import express, { Application, Request, Response, NextFunction } from 'express'
 import cors from 'cors'
 import mongoose from 'mongoose'
 import connectDB from './config/db'
-import dotenv from 'dotenv'
 import characterRoutes from './routes/characterRoutes'
+import teacherRoutes from './routes/teacherRoutes'
+import otpRoutes from './routes/otpRoutes'
 
-// import chatRoutes from './routes/chat'
-// import sessionRoutes from './routes/sessions'
-
-dotenv.config()
 
 const app: Application = express()
 const PORT = process.env.PORT || 3001
@@ -26,12 +25,14 @@ app.use(express.urlencoded({ extended: true }))
 
 // ─── Routes ───────────────────────────────────────────────────────────────────
 
-app.use('/api/v1/characters', characterRoutes)
-// app.use('/api/chat', chatRoutes)
-// app.use('/api/sessions', sessionRoutes)
+const api = '/api/v1';
+
+app.use(`${api}/characters`, characterRoutes)
+app.use(`${api}/teachers`, teacherRoutes)
+app.use(`${api}/otp`, otpRoutes)
 
 // Health check
-app.get('/api/health', (_req: Request, res: Response) => {
+app.get(`${api}/health`, (_req: Request, res: Response) => {
     res.json({
         status: 'ok',
         timestamp: new Date().toISOString(),

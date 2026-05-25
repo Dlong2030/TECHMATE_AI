@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
-import jwt from 'jsonwebtoken'
+import jwt, { SignOptions } from 'jsonwebtoken'
 import Teacher from '../models/Teacher'
+import Otp from '../models/Otp'
 
 const JWT_SECRET = process.env.JWT_SECRET || 'secret'
 const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || '7d'
@@ -8,7 +9,9 @@ const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || '7d'
 // ─── Helper: tạo token ────────────────────────────────────────────────────────
 
 const generateToken = (id: string): string => {
-    return jwt.sign({ id }, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN })
+    return jwt.sign({ id }, JWT_SECRET, {
+        expiresIn: JWT_EXPIRES_IN as SignOptions['expiresIn']
+    })
 }
 
 // ─── POST /api/teachers/register ─────────────────────────────────────────────
@@ -17,13 +20,24 @@ export const register = async (req: Request, res: Response): Promise<void> => {
     try {
         const { name, email, password, school } = req.body
 
+        // Kiểm tra email đã đăng ký chưa
         const existing = await Teacher.findOne({ email })
         if (existing) {
             res.status(400).json({ success: false, message: 'Email đã được sử dụng' })
             return
         }
 
+        // Kiểm tra email đã xác thực OTP chưa
+        const otpRecord = await Otp.findOne({ email, isUsed: true })
+        if (!otpRecord) {
+            res.status(400).json({ success: false, message: 'Email chưa được xác thực. Vui lòng xác nhận OTP trước' })
+            return
+        }
+
         const teacher = await Teacher.create({ name, email, password, school })
+
+        // Xoá OTP sau khi đăng ký thành công
+        await Otp.deleteMany({ email })
 
         const token = generateToken(teacher._id.toString())
 
@@ -88,7 +102,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
     }
 }
 
-// ─── GET /api/teachers/me ─────────────────────────────────────────────────────
+// ─── GET /api/teachers/:id ────────────────────────────────────────────────────
 
 export const getMe = async (req: Request, res: Response): Promise<void> => {
     try {
