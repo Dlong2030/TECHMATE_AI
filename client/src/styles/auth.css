@@ -1,0 +1,544 @@
+/* ─── Auth layout ─────────────────────────────────────────────────────────── */
+
+.auth-page {
+    font-family: 'Be Vietnam Pro', sans-serif;
+    background: #FFFBF5;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+}
+
+/* ─── Background floating icons ──────────────────────────────────────────── */
+
+.bg-icons {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.ico {
+    position: absolute;
+    font-size: 28px;
+    opacity: 0.07;
+    animation: floatIcon linear infinite;
+    user-select: none;
+}
+
+.ico-1 {
+    top: 5%;
+    left: 8%;
+    font-size: 32px;
+    animation-duration: 18s;
+    animation-delay: 0s;
+}
+
+.ico-2 {
+    top: 15%;
+    left: 88%;
+    font-size: 24px;
+    animation-duration: 22s;
+    animation-delay: 2s;
+}
+
+.ico-3 {
+    top: 30%;
+    left: 5%;
+    font-size: 20px;
+    animation-duration: 16s;
+    animation-delay: 4s;
+}
+
+.ico-4 {
+    top: 45%;
+    left: 92%;
+    font-size: 28px;
+    animation-duration: 20s;
+    animation-delay: 1s;
+}
+
+.ico-5 {
+    top: 60%;
+    left: 10%;
+    font-size: 22px;
+    animation-duration: 24s;
+    animation-delay: 3s;
+}
+
+.ico-6 {
+    top: 75%;
+    left: 85%;
+    font-size: 26px;
+    animation-duration: 19s;
+    animation-delay: 5s;
+}
+
+.ico-7 {
+    top: 85%;
+    left: 20%;
+    font-size: 30px;
+    animation-duration: 17s;
+    animation-delay: 2s;
+}
+
+.ico-8 {
+    top: 20%;
+    left: 50%;
+    font-size: 18px;
+    animation-duration: 21s;
+    animation-delay: 6s;
+}
+
+.ico-9 {
+    top: 70%;
+    left: 55%;
+    font-size: 24px;
+    animation-duration: 23s;
+    animation-delay: 1s;
+}
+
+.ico-10 {
+    top: 50%;
+    left: 30%;
+    font-size: 20px;
+    animation-duration: 25s;
+    animation-delay: 4s;
+}
+
+@keyframes floatIcon {
+    0% {
+        transform: translateY(0px) rotate(0deg);
+        opacity: 0.07;
+    }
+
+    50% {
+        transform: translateY(-18px) rotate(8deg);
+        opacity: 0.11;
+    }
+
+    100% {
+        transform: translateY(0px) rotate(0deg);
+        opacity: 0.07;
+    }
+}
+
+/* ─── Blobs ───────────────────────────────────────────────────────────────── */
+
+.blob {
+    position: fixed;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    filter: blur(60px);
+}
+
+.blob-1 {
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(249, 115, 22, 0.12), transparent 70%);
+    top: -100px;
+    right: -80px;
+}
+
+.blob-2 {
+    width: 350px;
+    height: 350px;
+    background: radial-gradient(circle, rgba(251, 191, 36, 0.1), transparent 70%);
+    bottom: -80px;
+    left: -60px;
+}
+
+/* ─── Card ────────────────────────────────────────────────────────────────── */
+
+.card-wrap {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 440px;
+    padding: 16px;
+}
+
+.card {
+    background: white;
+    border-radius: 28px;
+    box-shadow:
+        0 2px 4px rgba(180, 100, 50, 0.04),
+        0 8px 24px rgba(180, 100, 50, 0.08),
+        0 32px 64px rgba(180, 100, 50, 0.1);
+    overflow: hidden;
+    animation: popIn .5s cubic-bezier(.22, 1, .36, 1);
+}
+
+@keyframes popIn {
+    from {
+        opacity: 0;
+        transform: translateY(32px) scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ─── Header ──────────────────────────────────────────────────────────────── */
+
+.card-header {
+    background: linear-gradient(150deg, #FFF0E0 0%, #FFE4CC 100%);
+    padding: 28px 36px 24px;
+    border-bottom: 1px solid #FFD9BC;
+}
+
+.logo-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+
+.logo-badge {
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #F97316, #E8714A);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
+}
+
+.logo-name {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: #2D1B0E;
+}
+
+.header-title {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: #2D1B0E;
+    margin-bottom: 4px;
+    line-height: 1.25;
+}
+
+.header-sub {
+    font-size: 13px;
+    color: #A07855;
+    font-weight: 500;
+}
+
+/* ─── Step dots ───────────────────────────────────────────────────────────── */
+
+.steps {
+    display: flex;
+    gap: 6px;
+    margin-top: 16px;
+}
+
+.sdot {
+    height: 5px;
+    border-radius: 3px;
+    background: rgba(249, 115, 22, 0.2);
+    transition: all .35s ease;
+    flex: 1;
+}
+
+.sdot.on {
+    background: #F97316;
+    flex: 2;
+}
+
+.sdot.done {
+    background: rgba(249, 115, 22, 0.45);
+}
+
+/* ─── Body ────────────────────────────────────────────────────────────────── */
+
+.card-body {
+    padding: 28px 36px 32px;
+    animation: slideIn .3s cubic-bezier(.22, 1, .36, 1);
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* ─── Form fields ─────────────────────────────────────────────────────────── */
+
+.field {
+    margin-bottom: 16px;
+}
+
+.flabel {
+    display: block;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: #6B4C35;
+    margin-bottom: 6px;
+    letter-spacing: 0.02em;
+}
+
+.finput {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1.5px solid #F0DDD0;
+    border-radius: 14px;
+    font-family: 'Be Vietnam Pro', sans-serif;
+    font-size: 14.5px;
+    color: #2D1B0E;
+    background: #FFFBF5;
+    outline: none;
+    transition: all .2s;
+}
+
+.finput::placeholder {
+    color: #C5A88A;
+}
+
+.finput:focus {
+    border-color: #F97316;
+    background: white;
+    box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
+}
+
+.finput.err {
+    border-color: #DC2626;
+    background: #FFF5F5;
+}
+
+.ferr {
+    font-size: 12px;
+    color: #DC2626;
+    font-weight: 500;
+    margin-top: 5px;
+}
+
+/* ─── OTP ─────────────────────────────────────────────────────────────────── */
+
+.otp-hint {
+    font-size: 13px;
+    color: #A07855;
+    text-align: center;
+    margin-bottom: 16px;
+    font-weight: 500;
+    line-height: 1.6;
+}
+
+.otp-hint b {
+    color: #2D1B0E;
+    font-weight: 700;
+}
+
+.otp-row {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+}
+
+.oinput {
+    width: 50px;
+    height: 58px;
+    border: 1.5px solid #F0DDD0;
+    border-radius: 16px;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: #2D1B0E;
+    background: #FFFBF5;
+    text-align: center;
+    outline: none;
+    transition: all .2s;
+}
+
+.oinput:focus {
+    border-color: #F97316;
+    background: white;
+    box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.12);
+    transform: scale(1.05);
+}
+
+.oinput.filled {
+    border-color: #E8714A;
+    background: #FFF0EB;
+    color: #E8714A;
+}
+
+/* ─── Timer ───────────────────────────────────────────────────────────────── */
+
+.timer-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 16px;
+}
+
+.timer-txt {
+    font-size: 12.5px;
+    color: #A07855;
+    font-weight: 500;
+}
+
+.timer-txt b {
+    color: #F97316;
+    font-weight: 700;
+}
+
+/* ─── Buttons ─────────────────────────────────────────────────────────────── */
+
+.btn {
+    padding: 13px 20px;
+    border: none;
+    border-radius: 999px;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all .22s;
+    letter-spacing: 0.01em;
+}
+
+.btn-main {
+    width: 100%;
+    background: linear-gradient(135deg, #F97316 0%, #E8714A 100%);
+    color: white;
+    box-shadow: 0 4px 16px rgba(249, 115, 22, 0.35);
+}
+
+.btn-main:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(249, 115, 22, 0.4);
+}
+
+.btn-main:active {
+    transform: translateY(0);
+}
+
+.btn-main:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.btn-ghost {
+    background: none;
+    color: #A07855;
+    font-size: 13px;
+    padding: 8px;
+    font-weight: 600;
+}
+
+.btn-ghost:hover {
+    color: #F97316;
+}
+
+/* ─── Global error ────────────────────────────────────────────────────────── */
+
+.gerr {
+    background: #FEF2F2;
+    border: 1px solid #FECACA;
+    border-radius: 12px;
+    padding: 10px 14px;
+    font-size: 13px;
+    color: #DC2626;
+    font-weight: 500;
+    margin-bottom: 14px;
+}
+
+/* ─── Switch link ─────────────────────────────────────────────────────────── */
+
+.switch-link {
+    text-align: center;
+    margin-top: 18px;
+    font-size: 13.5px;
+    color: #A07855;
+    font-weight: 500;
+}
+
+.switch-link a {
+    color: #F97316;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.switch-link a:hover {
+    text-decoration: underline;
+}
+
+/* ─── Success ─────────────────────────────────────────────────────────────── */
+
+.success-wrap {
+    text-align: center;
+    padding: 8px 0;
+}
+
+.sicon {
+    font-size: 56px;
+    margin-bottom: 16px;
+    display: block;
+    animation: bounce .5s cubic-bezier(.22, 1, .36, 1);
+}
+
+@keyframes bounce {
+    0% {
+        transform: scale(0) rotate(-10deg);
+    }
+
+    60% {
+        transform: scale(1.15) rotate(4deg);
+    }
+
+    100% {
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+.stitle {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: #2D1B0E;
+    margin-bottom: 8px;
+}
+
+.ssub {
+    font-size: 14px;
+    color: #A07855;
+    line-height: 1.6;
+    margin-bottom: 24px;
+}
+
+/* ─── Spinner ─────────────────────────────────────────────────────────────── */
+
+.spin {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spinning .6s linear infinite;
+    vertical-align: middle;
+    margin-right: 6px;
+}
+
+@keyframes spinning {
+    to {
+        transform: rotate(360deg);
+    }
+}
