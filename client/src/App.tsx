@@ -3,6 +3,8 @@ import AuthProvider from './components/AuthProvider'
 import ProtectedRoute from './components/ProtectedRoute'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import Dashboard from './pages/Dashboard'
+import Classroom from './pages/Classroom'
 
 const App = () => (
   <BrowserRouter>
@@ -15,7 +17,13 @@ const App = () => (
         {/* Protected routes */}
         <Route path="/dashboard" element={
           <ProtectedRoute>
-            <div>Dashboard — coming soon</div>
+            <Dashboard />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/classroom/:characterId" element={
+          <ProtectedRoute>
+            <Classroom />
           </ProtectedRoute>
         } />
 
