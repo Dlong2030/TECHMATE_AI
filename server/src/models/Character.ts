@@ -9,7 +9,8 @@ export interface ICharacter extends Document {
     grade: string
     personality: string
     systemPrompt: string
-    avatarUrl?: string
+    idleImageUrl: string  // ảnh miệng đóng
+    talkImageUrl: string  // ảnh miệng mở
     isActive: boolean
     createdAt: Date
     updatedAt: Date
@@ -49,7 +50,11 @@ const CharacterSchema = new Schema<ICharacter>(
             type: String,
             required: [true, 'System prompt là bắt buộc'],
         },
-        avatarUrl: {
+        idleImageUrl: {
+            type: String,
+            default: '',
+        },
+        talkImageUrl: {
             type: String,
             default: '',
         },
