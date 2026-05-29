@@ -29,7 +29,8 @@ export interface Character {
     grade: Grade
     personality: string
     systemPrompt: string
-    avatarUrl?: string
+    idleImageUrl?: string
+    talkImageUrl?: string
     isActive: boolean
     createdAt: string
 }

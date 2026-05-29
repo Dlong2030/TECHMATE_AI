@@ -9,6 +9,7 @@ import teacherRoutes from './routes/teacherRoutes'
 import otpRoutes from './routes/otpRoutes'
 import chatRoutes from './routes/chatRoutes'
 import sessionRoutes from './routes/sessionRoutes'
+import uploadRoutes from './routes/uploadRoutes'
 
 
 const app: Application = express()
@@ -34,6 +35,7 @@ app.use(`${api}/teachers`, teacherRoutes)
 app.use(`${api}/otp`, otpRoutes)
 app.use(`${api}/chat`, chatRoutes)
 app.use(`${api}/sessions`, sessionRoutes)
+app.use(`${api}/upload`, uploadRoutes)
 
 // Health check
 app.get(`${api}/health`, (_req: Request, res: Response) => {

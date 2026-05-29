@@ -36,16 +36,12 @@ export const getCharacterById = async (req: AuthRequest, res: Response): Promise
 export const createCharacter = async (req: AuthRequest, res: Response): Promise<void> => {
     try {
         const teacher = req.teacher!
-        const { name, subject, grade, personality, systemPrompt, avatarUrl } = req.body
+        const { name, subject, grade, personality, systemPrompt, idleImageUrl, talkImageUrl } = req.body
 
         const character = await Character.create({
-            teacherId: teacher._id, // lấy từ token, không cần truyền từ body
-            name,
-            subject,
-            grade,
-            personality,
-            systemPrompt,
-            avatarUrl,
+            teacherId: teacher._id,
+            name, subject, grade, personality, systemPrompt,
+            idleImageUrl, talkImageUrl,
         })
 
         res.status(201).json({ success: true, data: character })
